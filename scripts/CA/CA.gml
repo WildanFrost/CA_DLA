@@ -21,6 +21,12 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 		ds_grid_shuffle(grid);
 	}
 	
+	function update(){
+		request();
+		approval();
+		transaction();
+	}
+	
 	function request(){
 	}
 	
