@@ -13,5 +13,5 @@ enum State_ApprovalTransaction{
 }
 
 enum Direction{
-	L,T,R,B
+	R,T,L,B
 }

@@ -6,6 +6,11 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	updateCount = 0;
 	
 	function populate(){
+		initializeCells();
+		addressCellsNeighbor();
+	}
+	
+	function initializeCells(){
 		var cellTotal = gridWidth*gridHeight;
 		var cellMobile = round(cellTotal*concentration);
 		for(var col=0;col<gridWidth;col++){
@@ -19,29 +24,38 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 		ds_grid_shuffle(grid);
 	}
 	
+	function addressCellsNeighbor(){
+		for(var col=0;col<gridWidth;col++){
+			for(var row=0;row<gridHeight;row++){
+				var neighbors = [
+					col<gridWidth-1?  grid[# col+1,row] : -1,
+					row>0?			  grid[# col,row-1] : -1,
+					col>0?			  grid[# col-1,row] : -1,
+					row<gridHeight-1? grid[# col,row+1] : -1
+				];
+				grid[# col,row].setNeighbors(neighbors);
+			}
+		}
+	}
+	
 	function update(){
 		request();
 		approval();
 		transaction();
 		updateCount++;
-		show_debug_message("update time: "+string(delta_time / 1000000)+" seconds, update count:"+string(updateCount));
+		//show_debug_message("update time: "+string(delta_time / 1000000)+" seconds, update count:"+string(updateCount));
 	}
 	
 	function request(){
-		for(var col=0;col<gridWidth;col++){
-			for(var row=0;row<gridHeight;row++){
-				
-			}
-		}
-		show_debug_message("request");
+		//show_debug_message("request");
 	}
 	
 	function approval(){
-		show_debug_message("approval");
+		//show_debug_message("approval");
 	}
 	
 	function transaction(){
-		show_debug_message("transaction");
+		//show_debug_message("transaction");
 	}
 	
 	function drawGrid(x,y){
