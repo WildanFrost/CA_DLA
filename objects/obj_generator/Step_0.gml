@@ -1,3 +1,2 @@
 /// @description 
-
-ca.drawGrid(x,y);
+ca.update();

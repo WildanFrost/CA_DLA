@@ -1,5 +1,3 @@
-// Script assets have changed for v2.3.0 see
-// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function DLACell(state) constructor{
 	self.state = state;
 	state_requestApproval = -1;
@@ -7,5 +5,13 @@ function DLACell(state) constructor{
 	
 	function setState(state){
 		self.state = state;
+	}
+	
+	function setState_requAppr(state_requestApproval){
+		self.state_requestApproval = state_requestApproval;
+	}
+	
+	function setState_apprTran(state_approvalTransaction){
+		self.state_approvalTransaction = state_approvalTransaction;
 	}
 }

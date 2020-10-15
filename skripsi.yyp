@@ -2,6 +2,7 @@
   "resources": [
     {"id":{"name":"EnumDeclaration","path":"scripts/EnumDeclaration/EnumDeclaration.yy",},"order":2,},
     {"id":{"name":"obj_generator","path":"objects/obj_generator/obj_generator.yy",},"order":0,},
+    {"id":{"name":"spr_cell","path":"sprites/spr_cell/spr_cell.yy",},"order":0,},
     {"id":{"name":"DLACell","path":"scripts/DLACell/DLACell.yy",},"order":1,},
     {"id":{"name":"CA","path":"scripts/CA/CA.yy",},"order":0,},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},"order":0,},
