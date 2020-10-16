@@ -28,10 +28,10 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 		for(var col=0;col<gridWidth;col++){
 			for(var row=0;row<gridHeight;row++){
 				var neighbors = [
-					col<gridWidth-1?  grid[# col+1,row] : -1,
-					row>0?			  grid[# col,row-1] : -1,
-					col>0?			  grid[# col-1,row] : -1,
-					row<gridHeight-1? grid[# col,row+1] : -1
+					col<gridWidth-1?  grid[# col+1,row] : 0,
+					row>0?			  grid[# col,row-1] : 0,
+					col>0?			  grid[# col-1,row] : 0,
+					row<gridHeight-1? grid[# col,row+1] : 0
 				];
 				grid[# col,row].setNeighbors(neighbors);
 			}
@@ -47,6 +47,36 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function request(){
+		for(var col=0;col<gridWidth;col++){
+			for(var row=0;row<gridHeight;row++){
+				var cell = grid[# col,row];
+				switch(cell.state){
+					case State.f0:
+						cell.setState_requAppr(State_RequestApproval.f1);
+						break;
+					case State.m0:
+						if(cell.hasFixedCellNeighbor()){
+							cell.setState_requAppr(State_RequestApproval.f1a);
+						} else {
+							var emptyNeighborList = cell.getEmptyNeighborList();
+							if(!ds_list_empty(emptyNeighborList)){
+								var diffuseTarget = emptyNeighborList[| irandom(ds_list_size(emptyNeighborList)-1)];
+								cell.setDiffuseTarget(diffuseTarget);
+								diffuseTarget.addDiffuseRequest();
+								cell.setState_requAppr(State_RequestApproval.m1d);
+							} else {
+								cell.setState_requAppr(State_RequestApproval.m1s);
+							}
+							ds_list_destroy(emptyNeighborList);
+						}
+						break;
+					case State.e0:
+						cell.setState_requAppr(State_RequestApproval.e1);
+						break;
+				}
+				//show_debug_message("["+string(col)+","+string(row)+"] "+cell.toString());
+			}
+		}
 		//show_debug_message("request");
 	}
 	
