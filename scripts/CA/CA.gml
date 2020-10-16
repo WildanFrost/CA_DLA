@@ -81,6 +81,32 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function approval(){
+		for(var col=0;col<gridWidth;col++){
+			for(var row=0;row<gridHeight;row++){
+				var cell = grid[# col,row];
+				switch(cell.state_requestApproval){
+					case State_RequestApproval.f1:
+						cell.setState_apprTran(State_ApprovalTransaction.f2);
+						break;
+					case State_RequestApproval.f1a:
+						cell.setState_apprTran(State_ApprovalTransaction.f2a);
+						break;
+					case State_RequestApproval.m1s:
+						cell.setState_apprTran(State_ApprovalTransaction.m2s);
+						break;
+					case State_RequestApproval.m1d:
+						cell.setState_apprTran(State_ApprovalTransaction.m2d);
+						break;
+					case State_RequestApproval.e1:
+						if(cell.diffuseRequestNumber==1)
+							cell.setState_apprTran(State_ApprovalTransaction.r2);
+						else
+							cell.setState_apprTran(State_ApprovalTransaction.e2);
+						break;
+				}
+				//show_debug_message("["+string(col)+","+string(row)+"] "+cell.toString());
+			}
+		}
 		//show_debug_message("approval");
 	}
 	

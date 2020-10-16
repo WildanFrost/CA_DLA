@@ -54,6 +54,7 @@ function DLACell(state) constructor{
 	function toString(){
 		var state = ["f0", "m0", "e0"];
 		var state_requestApproval = ["f1", "f1a", "m1s", "m1d", "e1"];
-		return state[self.state] +","+ state_requestApproval[self.state_requestApproval] +", request:"+string(diffuseRequestNumber);
+		var state_approvalTransaction = ["f2", "f2a", "m2s", "m2d", "r2", "e2"];
+		return state[self.state] +","+ state_requestApproval[self.state_requestApproval] +","+ state_approvalTransaction[self.state_approvalTransaction] +", request:"+string(diffuseRequestNumber);
 	}
 }
