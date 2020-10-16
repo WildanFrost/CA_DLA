@@ -57,4 +57,9 @@ function DLACell(state) constructor{
 		var state_approvalTransaction = ["f2", "f2a", "m2s", "m2d", "r2", "e2"];
 		return state[self.state] +","+ state_requestApproval[self.state_requestApproval] +","+ state_approvalTransaction[self.state_approvalTransaction] +", request:"+string(diffuseRequestNumber);
 	}
+	
+	function updateReset(){
+		diffuseRequestNumber = 0;
+		diffuseTarget = 0;
+	}
 }

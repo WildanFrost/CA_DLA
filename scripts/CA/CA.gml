@@ -111,6 +111,35 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function transaction(){
+		for(var col=0;col<gridWidth;col++){
+			for(var row=0;row<gridHeight;row++){
+				var cell = grid[# col,row];
+				switch(cell.state_approvalTransaction){
+					case State_ApprovalTransaction.f2:
+						cell.setState(State.f0);
+						break;
+					case State_ApprovalTransaction.f2a:
+						cell.setState(State.f0);
+						break;
+					case State_ApprovalTransaction.m2s:
+						cell.setState(State.m0);
+						break;
+					case State_ApprovalTransaction.m2d:
+						if(cell.diffuseTarget.state_approvalTransaction == State_ApprovalTransaction.r2)
+							cell.setState(State.e0);
+						else cell.setState(State.m0);
+						break;
+					case State_ApprovalTransaction.r2:
+						cell.setState(State.m0);
+						break;
+					case State_ApprovalTransaction.e2:
+						cell.setState(State.e0);
+						break;
+				}
+				cell.updateReset();
+				//show_debug_message("["+string(col)+","+string(row)+"] "+cell.toString());
+			}
+		}
 		//show_debug_message("transaction");
 	}
 	
