@@ -4,6 +4,7 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	self.concentration = concentration;
 	grid = ds_grid_create(self.gridWidth, self.gridHeight);
 	updateCount = 0;
+	cellMobile = 0;
 	
 	function populate(){
 		initializeCells();
@@ -42,6 +43,7 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 		request();
 		approval();
 		transaction();
+		
 		updateCount++;
 		//show_debug_message("update time: "+string(delta_time / 1000000)+" seconds, update count:"+string(updateCount));
 	}
@@ -123,14 +125,19 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 						break;
 					case State_ApprovalTransaction.m2s:
 						cell.setState(State.m0);
+						countCellMobile();
 						break;
 					case State_ApprovalTransaction.m2d:
 						if(cell.diffuseTarget.state_approvalTransaction == State_ApprovalTransaction.r2)
 							cell.setState(State.e0);
-						else cell.setState(State.m0);
+						else {
+							cell.setState(State.m0);
+							countCellMobile();
+						}
 						break;
 					case State_ApprovalTransaction.r2:
 						cell.setState(State.m0);
+						countCellMobile();
 						break;
 					case State_ApprovalTransaction.e2:
 						cell.setState(State.e0);
@@ -143,12 +150,23 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 		//show_debug_message("transaction");
 	}
 	
+	function hasMobileCell(){
+		var has = cellMobile>0;
+		cellMobile=0;
+		return has;
+	}
+	
+	function countCellMobile(){
+		cellMobile++;
+	}
+	
 	function drawGrid(x,y){
 		for(var col=0;col<gridWidth;col++){
 			for(var row=0;row<gridHeight;row++){
 				var cellState = grid[# col,row].state;
+				var cellSprSize = sprite_get_width(spr_cell);
 				//draw_text(x+col*32,y+row*32,grid[# col,row].state);
-				draw_sprite(spr_cell,cellState,x+col*32,y+row*32);
+				draw_sprite(spr_cell,cellState,x+col*cellSprSize,y+row*cellSprSize);
 			}
 		}
 	}

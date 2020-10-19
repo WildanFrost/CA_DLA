@@ -1,6 +1,7 @@
 /// @description 
 
+randomize();
 show_debug_overlay(true);
-ca = new CA(10,10,0.5);
+ca = new CA(20,20,0.5);
 ca.populate();
 alarm[0]=room_speed;
