@@ -5,6 +5,7 @@ function DLACell(state) constructor{
 	neighbors = 0;
 	diffuseRequestNumber = 0;
 	diffuseTarget = 0;
+	turnedToFixedAt = 0;
 	
 	function setState(state){
 		self.state = state;
@@ -20,6 +21,14 @@ function DLACell(state) constructor{
 	
 	function setNeighbors(neighbors){
 		self.neighbors = neighbors;
+	}
+	
+	function getNeighbors(){
+		return neighbors;
+	}
+	
+	function setTurnedToFixedAt(updateCount){
+		turnedToFixedAt = updateCount;
 	}
 	
 	function hasFixedCellNeighbor(){

@@ -40,6 +40,7 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function update(){
+		cellMobile=0;
 		request();
 		approval();
 		transaction();
@@ -122,6 +123,7 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 						break;
 					case State_ApprovalTransaction.f2a:
 						cell.setState(State.f0);
+						cell.setTurnedToFixedAt(updateCount);
 						break;
 					case State_ApprovalTransaction.m2s:
 						cell.setState(State.m0);
@@ -152,7 +154,6 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	
 	function hasMobileCell(){
 		var has = cellMobile>0;
-		cellMobile=0;
 		return has;
 	}
 	
@@ -163,10 +164,14 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	function drawGrid(x,y){
 		for(var col=0;col<gridWidth;col++){
 			for(var row=0;row<gridHeight;row++){
-				var cellState = grid[# col,row].state;
+				var cell = grid[# col,row];
+				var cellState = cell.state;
 				var cellSprSize = sprite_get_width(spr_cell);
 				//draw_text(x+col*32,y+row*32,grid[# col,row].state);
-				draw_sprite(spr_cell,cellState,x+col*cellSprSize,y+row*cellSprSize);
+				//draw_sprite_ext(spr_cell,cellState,x+col*cellSprSize,y+row*cellSprSize,1,1,0,cellFixedAt%4==0?c_white: c_blue,1);
+				//if(cellState == State.f0)draw_rectangle_color(x+col*cellSprSize,y+row*cellSprSize,x+col*cellSprSize+16,y+row*cellSprSize+16,c_white,c_white,c_white,c_white,false);
+				if(cellState==State.f0) draw_sprite_ext(spr_cell,cellState,x+col*cellSprSize,y+row*cellSprSize,1,1,0,c_white,1);
+				else if (cellState==State.m0) draw_sprite_ext(spr_cell,cellState,x+col*cellSprSize,y+row*cellSprSize,1,1,0,c_white,0.5);
 			}
 		}
 	}
