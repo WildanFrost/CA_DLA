@@ -1,5 +1,4 @@
 {
-  "name": "tile_wall",
   "spriteId": {
     "name": "spr_tileWall",
     "path": "sprites/spr_tileWall/spr_tileWall.yy",
@@ -39,6 +38,7 @@
     "path": "folders/Tile Sets.yy",
   },
   "resourceVersion": "1.0",
+  "name": "tile_wall",
   "tags": [],
   "resourceType": "GMTileSet",
 }
