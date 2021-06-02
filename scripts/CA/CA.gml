@@ -3,7 +3,6 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	self.gridHeight = gridHeight;
 	self.concentration = concentration;
 	grid = ds_grid_create(self.gridWidth, self.gridHeight);
-	updateCount = 0;
 	cellMobile = 0;
 	
 	function populate(){
@@ -40,13 +39,9 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function update(){
-		cellMobile=0;
 		request();
 		approval();
 		transaction();
-		
-		updateCount++;
-		//show_debug_message("update time: "+string(delta_time / 1000000)+" seconds, update count:"+string(updateCount));
 	}
 	
 	function request(){
@@ -114,6 +109,7 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function transaction(){
+		cellMobile=0;
 		for(var col=0;col<gridWidth;col++){
 			for(var row=0;row<gridHeight;row++){
 				var cell = grid[# col,row];
@@ -123,23 +119,22 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 						break;
 					case State_ApprovalTransaction.f2a:
 						cell.setState(State.f0);
-						cell.setTurnedToFixedAt(updateCount);
 						break;
 					case State_ApprovalTransaction.m2s:
 						cell.setState(State.m0);
-						countCellMobile();
+						addMobileCellNumber();
 						break;
 					case State_ApprovalTransaction.m2d:
 						if(cell.diffuseTarget.state_approvalTransaction == State_ApprovalTransaction.r2)
 							cell.setState(State.e0);
 						else {
 							cell.setState(State.m0);
-							countCellMobile();
+							addMobileCellNumber();
 						}
 						break;
 					case State_ApprovalTransaction.r2:
 						cell.setState(State.m0);
-						countCellMobile();
+						addMobileCellNumber();
 						break;
 					case State_ApprovalTransaction.e2:
 						cell.setState(State.e0);
@@ -153,11 +148,10 @@ function CA(gridWidth, gridHeight, concentration) constructor{
 	}
 	
 	function hasMobileCell(){
-		var has = cellMobile>0;
-		return has;
+		return cellMobile>0;
 	}
 	
-	function countCellMobile(){
+	function addMobileCellNumber(){
 		cellMobile++;
 	}
 	

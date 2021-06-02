@@ -1,7 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function TileSimulation(){
-	var xx, yy, gv, tv;
+	var xx, yy, gv;
 	TILE_SIZE = 4;
 
 	for(yy=0; yy<Grid_Height; yy++)
